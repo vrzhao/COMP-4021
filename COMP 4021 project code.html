@@ -6,7 +6,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
-		var timer = 5000;
+		var timer = 120000;
 
 		var monster_move_timer = 1000;
 		
@@ -104,6 +104,15 @@
 		function start() {
 			$("#play").show();
 			$("#title").hide();
+
+			setTimeout(time, 1000);
+		}
+
+		function restart() {
+			$("#play").show();
+			$("#gameover").hide();
+
+			setTimeout(time, 1000);
 		}
 
 		function gameover() {
@@ -115,7 +124,7 @@
 			timer -= 1000;
 			$("#timer").text(timer);
 			if (timer == 0) {
-				timer = 5000;
+				timer = 120000;
 				$("#timer").text(timer);
 				gameover();
 			}
@@ -126,11 +135,13 @@
 
 
 		$(document).ready(function () {
+			$("#play").hide();
+			
 			$("#startButton").on("keydown", function(e) {
 
 			});
 			
-			setTimeout(time, 1000);
+			
 		});
 	</script>
 
@@ -144,7 +155,7 @@
         border: 2px solid black;
     }
 
-	#sidebar { flex: 9; }
+	#sidebar { flex: 10; }
     #main { 
 		flex: 10;
 		padding: 1vh;
@@ -202,7 +213,7 @@
 
 	#gameover {
 		background: red;
-		display: block;
+		display: none;
 	}
 
 	a {
@@ -243,6 +254,18 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -262,6 +285,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -281,6 +306,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -300,6 +327,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -319,6 +348,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -338,6 +369,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -357,6 +390,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -376,6 +411,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -395,6 +432,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -414,6 +453,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -433,6 +474,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -452,6 +495,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -471,6 +516,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -490,6 +537,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -509,6 +558,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -528,6 +579,8 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -542,12 +595,13 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>	
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -567,62 +621,19 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
-			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
@@ -641,7 +652,7 @@
 	</div>
 	<div class = "screen" id = "gameover">
 		<p id ="gameover_message">Game Over</p>
-		<a id = "restartButton" href= "#" onclick="start()">Restart</a>
+		<a id = "restartButton" href= "#" onclick="restart()">Restart</a>
 	</div>
 </body>
 </html>
