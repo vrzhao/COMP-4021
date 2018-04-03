@@ -6,49 +6,149 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
-		var timer = 500000;
+		var timer = 5000;
 
 		var monster_move_timer = 1000;
+		
+		var lives = 3;
 
-		function gameover{
-			$("#play").fadeout();
-			$("#gameover").fadein();
+		var player_location = 398
+
+		var monster_location = 0
+
+		// there are 399 squares in the maze
+		function move_player(e) {
+			switch(e) {
+				case "up":
+					if (player_location-21 >= 399) {
+						var div = $(".map").eq(player_location-21);
+						player_location -= 21
+						if(div.background-color == white) {
+							$("#player").appendTo(div);
+						}
+					}
+					break;
+				case "left":
+					if (player_location-1 >= 1) {
+						var div = $(".map").eq(player_location-1);
+						player_location -= 1
+						if(div.background-color == white) {
+							$("#player").appendTo(div);
+						}					
+					}
+					break;
+				case "right":
+					if (player_location+1 <= 399) {
+						var div = $(".map").eq(player_location+1);
+						player_location += 1
+						if(div.background-color == white) {
+							$("#player").appendTo(div);
+						}					
+					}
+					break;
+				case "down":
+					if (player_location+1 <= 399) {
+						var div = $(".map").eq(player_location+21);
+						player_location += 21
+						if(div.background-color == white) {
+							$("#player").appendTo(div);
+						}
+					}
+					break;
+				default:
+			}
 		}
 
-		function time {
-			timer -= 1000;
+		function move_monster(e) {
+			switch(e) {
+				case "up":
+					if (monster_location-21 >= 399) {
+						var div = $(".map").eq(monster_location-21);
+						monster_location -= 21
+						if(div.background-color == white) {
+							$("#monster").appendTo(div);
+						}
+					}
+					break;
+				case "left":
+					if (monster_location-1 >= 1) {
+						var div = $(".map").eq(monster_location-1);
+						monster_location -= 1
+						if(div.background-color == white) {
+							$("#monster").appendTo(div);
+						}
+					}
+					break;
+				case "right":
+					if (monster_location+1 <= 399) {
+						var div = $(".map").eq(monster_location+1);
+						monster_location += 1
+						if(div.background-color == white) {
+							$("#monster").appendTo(div);
+						}
+					}
+					break;
+				case "down":
+					if (monster_location+1 <= 399) {
+						var div = $(".map").eq(monster_location+21);
+						monster_location += 21
+						if(div.background-color == white) {
+							$("#monster").appendTo(div);
+						}
+					}
+					break;
+				default:
+			}
+		}
 
+		function start() {
+			$("#play").show();
+			$("#title").hide();
+		}
+
+		function gameover() {
+			$("#play").hide();
+			$("#gameover").show();
+		}
+
+		function time() {
+			timer -= 1000;
+			$("#timer").text(timer);
 			if (timer == 0) {
-				timer = 500000;
+				timer = 5000;
+				$("#timer").text(timer);
 				gameover();
+			}
+			else {
+				setTimeout(time, 1000);
 			}
 		}
 
 
 		$(document).ready(function () {
-        // Handle the spacebar key for controlling the player
-			$("#title a").on("click", function(e) {
-				$("#title").hide();
-				$("#play").show();
+			$("#startButton").on("keydown", function(e) {
+
+			});
 			
-			});
-
-			$("#gameover a").on("click", function(e) {
-				$("#title").hide();
-				$("#play").show();
-
-				return false;
-			});
-
 			setTimeout(time, 1000);
 		});
 	</script>
 
 	<style>
 	body {
-		background-size: 100% 100%;
-        margin: 0;
-        padding: 0;
+		padding: 0; 
+		margin: 0; 
+	}
+
+	#sidebar, #main {
+        border: 2px solid black;
+    }
+
+	#sidebar { flex: 9; }
+    #main { 
+		flex: 10;
+		padding: 1vh;
+		background: white;
 	}
 
 	.screen {
@@ -59,25 +159,50 @@
 		width: 90vw;
 		height: 90vh;
 		margin: 5vh 5vw;
-		padding-top: 25vh;
 	}
 
 	.map {
 		float: left;
-		width: 1vmin;
-		height: 1vmin;
+		width: 4.25vmin;
+		height: 4.25vmin;
+		border: 1px solid black;
+		font-size: 2vh;
+	}
+	
+	#black {
+		background: grey;
+	}
+
+	#white {
+		background: white;
+	}
+
+	#start {
+		background: red
+	}
+
+	#goal {
+		background: gold;
 	}
 
 	#title {
-		background: gray;
+		background: yellow;
+		padding-top: 25vh;
+		display: block;
 	}
 
-	#play {
-		background: green;
+	#play { 
+		background: gray;
+		display: flex;
+	}
+
+	#instructions {
+		font-size: 4vh;
 	}
 
 	#gameover {
-	
+		background: red;
+		display: block;
 	}
 
 	a {
@@ -103,10 +228,21 @@
 </head>
 <body>
 	<div class = "screen" id = "title">
-		<p id ="title_message">(insert game name here)</p>
-		<a id = "startButton" href= "#">Start</a>
+		<p id ="title_message">Maze Escape!</p>
+		<a id = "startButton" href= "#" onclick="start()" >Start</a>
 	</div>
 	<div class = "screen" id = "play">
+		<div id = "main">
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "goal">Exit</div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -132,10 +268,380 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>	
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "black"></div>
+			<div class = "map" id = "start">Start</div>
+			<div class = "map" id = "black"></div>
+		</div>
+		<div id = "sidebar">
+			<h>Maze Escape!</h>
+			<span id = "timer"> 3:00 </span>
+			<p id = "instructions">Use the Arrow Keys to control your character! Navigate your way through the maze and reach the exit before the timer runs out! Be careful! There are monsters in the maze too! Encountering a monster will cost a life, lose all three of your lives and it is gameover!</p>
+		</div>
 	</div>
 	<div class = "screen" id = "gameover">
 		<p id ="gameover_message">Game Over</p>
-		<a id = "restartButton" href= "#">Restart</a>
+		<a id = "restartButton" href= "#" onclick="start()">Restart</a>
 	</div>
 </body>
 </html>
