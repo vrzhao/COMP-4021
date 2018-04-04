@@ -6,7 +6,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
-		var timer = 120000;
+		var timer = 180;
 		var completion_time = 0;
 
 		var monster_move_timer = 5000;
@@ -134,8 +134,13 @@
 		}
 
 		function time() {
-			timer -= 1000;
-			$("#timer").text(timer);
+            timer -= 1;
+            minute = Math.floor(timer / 60);
+            second = timer % 60;
+            if (second < 10) {
+                second = "0" + second.toString();
+            }
+			$("#timer").text(minute+":"+second);
 			if (timer == 0) {
 				timer = 120000;
 				$("#timer").text(timer);
