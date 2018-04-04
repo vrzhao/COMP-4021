@@ -111,7 +111,6 @@
 		}
 
         function restart() {
-            timer = 180;
             $("#gameover").hide();
 			$("#play").fadeIn(500);
 
@@ -126,7 +125,7 @@
 		function checkGoal() {
 			if (player_location == goal_location) {
 				completion_time = timer;
-				timer = 120000;
+				timer = 180;
 				
 				$("#play").hide();
 				$("#victory").show();
@@ -143,8 +142,8 @@
             }
 			$("#timer").text(minute+":"+second);
 			if (timer == 0) {
-				timer = "3:00";
-				$("#timer").text(timer);
+				timer = 180;
+				$("#timer").text("3:00");
 				gameover();
 			}
 			else {
