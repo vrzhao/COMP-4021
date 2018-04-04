@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -24,9 +24,12 @@
 			switch(e.keyCode) {
 				case 38:
 					// up
-					if (player_location-21 >= 399) {
+                    var div = $(".map").eq(0);
+                    div.css('background-color','red');
+                    if (player_location-21 >= 399) {
 						var div = $(".map").eq(player_location-21);
-						player_location -= 21
+                        player_location -= 21;
+                        div.css('background-color','red');
 						if(div.background != "black") {
 							$("#player").appendTo(div);
 						}
@@ -36,7 +39,8 @@
 					// left
 					if (player_location-1 >= 1) {
 						var div = $(".map").eq(player_location-1);
-						player_location -= 1
+                        player_location -= 1;
+                        div.css('background-color','red');
 						if(div.background != "black") {
 							$("#player").appendTo(div);
 						}					
@@ -46,7 +50,8 @@
 					// right
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+1);
-						player_location += 1
+                        player_location += 1;
+                        div.css('background-color','red');
 						if(div.background != "black") {
 							$("#player").appendTo(div);
 						}					
@@ -56,7 +61,8 @@
 					// down
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+21);
-						player_location += 21
+                        player_location += 21;
+                        div.css('background-color','red');
 						if(div.background != "black") {
 							$("#player").appendTo(div);
 						}
