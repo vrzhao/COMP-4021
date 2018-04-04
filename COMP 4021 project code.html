@@ -20,8 +20,10 @@
 
 		// there are 399 squares in the maze
 		function move_player(e) {
-			switch(e) {
-				case "up":
+			e = e || window.event;
+			switch(e.keyCode) {
+				case 38:
+					// up
 					if (player_location-21 >= 399) {
 						var div = $(".map").eq(player_location-21);
 						player_location -= 21
@@ -30,7 +32,8 @@
 						}
 					}
 					break;
-				case "left":
+				case 37:
+					// left
 					if (player_location-1 >= 1) {
 						var div = $(".map").eq(player_location-1);
 						player_location -= 1
@@ -39,7 +42,8 @@
 						}					
 					}
 					break;
-				case "right":
+				case 39:
+					// right
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+1);
 						player_location += 1
@@ -48,7 +52,8 @@
 						}					
 					}
 					break;
-				case "down":
+				case 40:
+					// down
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+21);
 						player_location += 21
@@ -62,8 +67,10 @@
 		}
 
 		function move_monster(e) {
-			switch(e) {
-				case "up":
+			e = e || window.event;
+			switch(e.keyCode) {
+				case 38:
+					// up
 					if (monster_location-21 >= 399) {
 						var div = $(".map").eq(monster_location-21);
 						monster_location -= 21
@@ -72,7 +79,8 @@
 						}
 					}
 					break;
-				case "left":
+				case 37:
+					// left
 					if (monster_location-1 >= 1) {
 						var div = $(".map").eq(monster_location-1);
 						monster_location -= 1
@@ -81,7 +89,8 @@
 						}
 					}
 					break;
-				case "right":
+				case 39:
+					// right
 					if (monster_location+1 <= 399) {
 						var div = $(".map").eq(monster_location+1);
 						monster_location += 1
@@ -90,7 +99,8 @@
 						}
 					}
 					break;
-				case "down":
+				case 40:
+					// down
 					if (monster_location+1 <= 399) {
 						var div = $(".map").eq(monster_location+21);
 						monster_location += 21
@@ -159,12 +169,15 @@
 
 		$(document).ready(function () {
 			$("#play").hide();
-
 			
 			$("#startButton").on("keydown", function(e) {
 				
 			});
-			
+                          
+            $(document).on("keydown", function(e) {
+                move_player(e);
+                move_monster(e);
+			});
 			
 		});
 	</script>
@@ -190,7 +203,9 @@
         border: 2px solid black;
     }
 
-	#sidebar { flex: 9; }
+	#sidebar {
+        flex: 5;
+    }
     #main { 
 		flex: 10;
 		padding: 1vh;
