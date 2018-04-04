@@ -105,21 +105,25 @@
 
         function start() {
             $("#title").fadeOut(500);
-			$("#play").show();
+            $("#play").show();
+            $("audio")[0].play();
 
 			setTimeout(time, 1000);
 		}
 
         function restart() {
             $("#gameover").hide();
-			$("#play").fadeIn(500);
+            $("#play").fadeIn(500);
+            $("audio")[0].play();
 
 			setTimeout(time, 1000);
 		}
 
 		function gameover() {
 			$("#play").hide();
-			$("#gameover").fadeIn(500);
+            $("#gameover").fadeIn(500);
+            $("audio")[0].pause();
+            $("audio")[0].currentTime = 0;
 		}
 
 		function checkGoal() {
@@ -269,6 +273,7 @@
 
 </head>
 <body>
+    <audio><source src="fireflies.mp3" type="audio/mpeg"></audio>
 	<div class = "screen" id = "title">
 		<p id ="title_message">Maze Escape!</p>
 		<a id = "startButton" href= "#" onclick="start()" >Start</a>
