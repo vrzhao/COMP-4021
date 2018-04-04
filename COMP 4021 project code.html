@@ -7,14 +7,16 @@
 	<script>
 		
 		var timer = 120000;
+		var completion_time = 0;
 
 		var monster_move_timer = 5000;
 		
 		var lives = 3;
 
-		var player_location = 398
+		var goal_location = 2;
+		var player_location = 398;
 
-		var monster_location = 0
+		var monster_location = [133,202,259,320,336];
 
 		// there are 399 squares in the maze
 		function move_player(e) {
@@ -120,6 +122,17 @@
 			$("#gameover").show();
 		}
 
+		function checkGoal() {
+			if (player_location == goal_location) {
+				completion_time = timer;
+				timer = 120000;
+				
+				$("#play").hide();
+				$("#victory").show();
+			}
+
+		}
+
 		function time() {
 			timer -= 1000;
 			$("#timer").text(timer);
@@ -209,6 +222,11 @@
 
 	#gameover {
 		background: red;
+		display: none;
+	}
+
+	#victory {
+		background: gold;
 		display: none;
 	}
 
@@ -668,5 +686,10 @@
 		<p id ="gameover_message">Game Over</p>
 		<a id = "restartButton" href= "#" onclick="restart()">Restart</a>
 	</div>
+	<div class = "screen" id = "victory">
+		<p id ="gameover_message">YOU WIN!</p>
+		<a id = "restartButton" href= "#" onclick="restart()">Play Again</a>
+	</div>
+
 </body>
 </html>
