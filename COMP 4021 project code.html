@@ -103,23 +103,24 @@
 			}
 		}
 
-		function start() {
+        function start() {
+            $("#title").fadeOut(500);
 			$("#play").show();
-			$("#title").hide();
 
 			setTimeout(time, 1000);
 		}
 
-		function restart() {
-			$("#play").show();
-			$("#gameover").hide();
+        function restart() {
+            timer = 180;
+            $("#gameover").hide();
+			$("#play").fadeIn(500);
 
 			setTimeout(time, 1000);
 		}
 
 		function gameover() {
 			$("#play").hide();
-			$("#gameover").show();
+			$("#gameover").fadeIn(500);
 		}
 
 		function checkGoal() {
@@ -142,7 +143,7 @@
             }
 			$("#timer").text(minute+":"+second);
 			if (timer == 0) {
-				timer = 120000;
+				timer = "3:00";
 				$("#timer").text(timer);
 				gameover();
 			}
@@ -154,6 +155,7 @@
 
 		$(document).ready(function () {
 			$("#play").hide();
+
 			
 			$("#startButton").on("keydown", function(e) {
 				
