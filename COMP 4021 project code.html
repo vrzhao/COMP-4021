@@ -83,12 +83,12 @@
 					break;
 				default:
 			}
-			console.log(player_location);
+			//console.log(player_location);
 		}
 
 		function canMove(div, loc){
-			console.log(div.css('background-color'));
-			return (div.css('background-color')=='rgb(0, 0, 0)') && (loc <= 398 && loc >=0);
+			//console.log(div.attr('id'));
+			return (div.attr('id')!='black') && (loc <= 398 && loc >=0);
 		}
 
 		function move_monster(e) {
