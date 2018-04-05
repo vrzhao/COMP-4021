@@ -274,6 +274,17 @@
 		display: flex;
 	}
 
+	.characters {
+		align: center;
+		width: 2vh;
+		height: 2vh;
+	}
+
+	.heart {
+		width: 10vh;
+		height: 15vh;
+	}
+
 	#instructions {
 		font-size: 3vh;
 	}
@@ -505,7 +516,7 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster1" src="monster1.svg"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -585,7 +596,7 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster2" src="monster2.svg"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -655,7 +666,7 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster3" src="monster3.svg"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -723,7 +734,7 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster4" src="monster4.svg"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -759,7 +770,7 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster5" src="monster5.svg"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -767,7 +778,7 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 
-</div>
+			</div>
 			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
@@ -792,7 +803,7 @@
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
 
-</div>
+			</div>
 			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
@@ -817,14 +828,16 @@
 			<div class = "map" id = "start">Start</div>
 			<div class = "map" id = "black"></div>
 			</div>
-
-</div>
+			</div>
 
 			<div class="col-4" id = "sidebar">
 				<h1>Maze Escape!</h1>
 				<h5>Time Left:</h5>
 				<span id = "timer"> 3:00 </span>
 				<p id = "instructions">Use the Arrow Keys to control your character! Navigate your way through the maze and reach the exit before the timer runs out! Be careful! There are monsters in the maze too! Encountering a monster will cost a life, lose all three of your lives and it is gameover!</p>
+				<img class = "heart" id="heart1" src="heart.svg">
+				<img class = "heart" id="heart2" src="heart.svg">
+				<img class = "heart" id="heart3" src="heart.svg">
 			</div>
 		</div>
 		</div>
@@ -835,7 +848,10 @@
 		<a id = "restartButton" href= "#" onclick="restart()">Restart</a>
 	</div>
 	<div class = "screen" id = "victory">
-		<p id ="gameover_message">YOU WIN!</p>
+		<h2 id ="victory_message">YOU WIN!</h2>
+		<p>You Escaped the maze with </p>
+		<p id = "time_left">3:00</p>
+		<p> left!</p>
 		<a id = "restartButton" href= "#" onclick="restart()">Play Again</a>
 	</div>
 
