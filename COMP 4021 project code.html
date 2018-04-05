@@ -3,7 +3,13 @@
 <html>
 <head>
     <title>COMP 4021 Project</title>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<meta charset="utf-8">
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
 		var timer = 180;
@@ -209,11 +215,7 @@
         border: 2px solid black;
     }
 
-	#sidebar {
-        flex: 5;
-    }
     #main { 
-		flex: 10;
 		padding: 1vh;
 		background: white;
 	}
@@ -260,7 +262,7 @@
 	}
 
 	#instructions {
-		font-size: 4vh;
+		font-size: 3vh;
 	}
 
 	#gameover {
@@ -276,7 +278,7 @@
 	a {
 		display:block;
 		font-size: 80%;
-		line-height:8vh;
+		line-height: 7vh;
 		color: black;
 		background: gray;
 		width: 40vh;
@@ -289,6 +291,16 @@
 
 	a:hover {
 		background: red;
+		display:block;
+		font-size: 80%;
+		line-height:7vh;
+		color: black;
+		text-decoration: none;
+	}
+
+	.row {
+		max-height: 100%;
+		min-height: 100%;
 	}
 
 	</style>
@@ -302,7 +314,10 @@
 		<a id = "startButton" href= "#" onclick="start()" >Start</a>
 	</div>
 	<div class = "screen" id = "play">
-		<div id = "main">
+		<div class="container-fluid">
+		<div class="row" id="grid">
+            <div class="col-8" id = "main">	
+
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "goal">Exit</div>
 			<div class = "map" id = "black"></div>
@@ -720,13 +735,17 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "start">Start</div>
 			<div class = "map" id = "black"></div>
-		</div>
-		<div id = "sidebar">
-			<h1>Maze Escape!</h1>
-            <h5>Time Left:</h5>
-			<span id = "timer"> 3:00 </span>
-			<p id = "instructions">Use the Arrow Keys to control your character! Navigate your way through the maze and reach the exit before the timer runs out! Be careful! There are monsters in the maze too! Encountering a monster will cost a life, lose all three of your lives and it is gameover!</p>
-		</div>
+			</div>
+
+		    <div class="col-4" id = "sidebar">
+				<h1>Maze Escape!</h1>
+            	<h5>Time Left:</h5>
+				<span id = "timer"> 3:00 </span>
+				<p id = "instructions">Use the Arrow Keys to control your character! Navigate your way through the maze and reach the exit before the timer runs out! Be careful! There are monsters in the maze too! Encountering a monster will cost a life, lose all three of your lives and it is gameover!</p>
+        	</div>
+        </div>
+        </div>
+
 	</div>
 	<div class = "screen" id = "gameover">
 		<p id ="gameover_message">Game Over</p>
