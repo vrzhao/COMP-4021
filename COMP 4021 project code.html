@@ -25,8 +25,10 @@
 					if (player_location-21 >= 399) {
 						var div = $(".map").eq(player_location-21);
 						player_location -= 21
-						if(div.background != "black") {
-							$("#player").appendTo(div);
+						if($("div").is("#black")) {
+						}
+						else{
+							$("#player").appendTo(div);						
 						}
 					}
 					break;
@@ -34,26 +36,32 @@
 					if (player_location-1 >= 1) {
 						var div = $(".map").eq(player_location-1);
 						player_location -= 1
-						if(div.background != "black") {
-							$("#player").appendTo(div);
-						}					
+						if($("div").is("#black")) {
+						}			
+						else{
+							$("#player").appendTo(div);						
+						}						
 					}
 					break;
 				case "right":
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+1);
 						player_location += 1
-						if(div.background != "black") {
-							$("#player").appendTo(div);
-						}					
+						if($("div").is("#black")) {
+						}
+						else{
+							$("#player").appendTo(div);						
+						}						
 					}
 					break;
 				case "down":
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+21);
 						player_location += 21
-						if(div.background != "black") {
-							$("#player").appendTo(div);
+						if($("div").is("#black")) {
+						}
+						else{
+							$("#player").appendTo(div);						
 						}
 					}
 					break;
@@ -67,7 +75,9 @@
 					if (monster_location-21 >= 399) {
 						var div = $(".map").eq(monster_location-21);
 						monster_location -= 21
-						if(div.background != "black") {
+						if($("div").is("#black")) {
+						}
+						else {
 							$("#monster").appendTo(div);
 						}
 					}
@@ -76,7 +86,9 @@
 					if (monster_location-1 >= 1) {
 						var div = $(".map").eq(monster_location-1);
 						monster_location -= 1
-						if(div.background != "black") {
+						if($("div").is("#black")) {
+						}
+						else {
 							$("#monster").appendTo(div);
 						}
 					}
@@ -85,7 +97,9 @@
 					if (monster_location+1 <= 399) {
 						var div = $(".map").eq(monster_location+1);
 						monster_location += 1
-						if(div.background != "black") {
+						if($("div").is("#black")) {
+						}
+						else {
 							$("#monster").appendTo(div);
 						}
 					}
@@ -94,7 +108,9 @@
 					if (monster_location+1 <= 399) {
 						var div = $(".map").eq(monster_location+21);
 						monster_location += 21
-						if(div.background != "black") {
+						if($("div").is("#black")) {
+						}
+						else {
 							$("#monster").appendTo(div);
 						}
 					}
