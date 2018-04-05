@@ -19,26 +19,28 @@
 		
 		var lives = 3;
 
-		var goal_location = 2;
-		var player_location = 397; // index start at 0
+		// index start at 0
+		var goal_location = 1;
+		var start_location = 397;
+		var player_location = 397;
+		var prev_location = player_location;
 
-		var monster_location = [133,202,259,320,336];
+		// monster locs checked with image layout
+		var monster_locations = [136,204,262,318,350];
 
-		// there are 399 squares in the maze
+		// there are 399 squares in the maze, i.e. 0-398 indexes
 		function move_player(e) {
 			e = e || window.event;
+			prev_location = player_location;
 			switch(e.keyCode) {
 				case 38:
 					// up
 					var neighbor = $(".map").eq(player_location-21);
 					if (canMove(neighbor, player_location-21)) {
-						// prev to white
-						var div = $(".map").eq(player_location);
-						div.css('background-color','white');
-
-						// next to red
-						neighbor.css('background-color','red');
+						// move player to neighbor aka new loc
+						$("#player").appendTo(neighbor);
 						player_location -= 21;
+						checkGoal();
 					}
 					break;
 					
@@ -46,39 +48,30 @@
 					// left
 					var neighbor = $(".map").eq(player_location-1);
 					if (canMove(neighbor, player_location-1)) {
-						// prev to white
-						var div = $(".map").eq(player_location);
-						div.css('background-color','white');
-
-						// next to red
-						neighbor.css('background-color','red');
+						// move player to neighbor aka new loc
+						$("#player").appendTo(neighbor);
 						player_location -= 1;
+						checkGoal();
 					}
 					break;
 				case 39:
 					// right
 					var neighbor = $(".map").eq(player_location+1);
 					if (canMove(neighbor, player_location+1)) {
-						// prev to white
-						var div = $(".map").eq(player_location);
-						div.css('background-color','white');
-
-						// next to red
-						neighbor.css('background-color','red');
+						// move player to neighbor aka new loc
+						$("#player").appendTo(neighbor);
 						player_location += 1;
+						checkGoal();
 					}
 					break;
 				case 40:
 					// down
 					var neighbor = $(".map").eq(player_location+21);
 					if (canMove(neighbor, player_location+21)) {
-						// prev to white
-						var div = $(".map").eq(player_location);
-						div.css('background-color','white');
-
-						// next to red
-						neighbor.css('background-color','red');
+						// move player to neighbor aka new loc
+						$("#player").appendTo(neighbor);
 						player_location += 21;
+						checkGoal();
 					}
 					break;
 				default:
@@ -87,51 +80,42 @@
 		}
 
 		function canMove(div, loc){
-			//console.log(div.attr('id'));
 			return (div.attr('id')!='black') && (loc <= 398 && loc >=0);
 		}
 
-		function move_monster(e) {
-			e = e || window.event;
-			switch(e.keyCode) {
-				case 38:
-					// up
-					if (monster_location-21 >= 399) {
-						var div = $(".map").eq(monster_location-21);
-						monster_location -= 21
-						if(div.background != "black") {
-							$("#monster").appendTo(div);
-						}
+		function canMonsterMove(div, loc){
+			return (div.attr('id')!='black') && (loc <= 398 && loc >=0) && (loc!=goal_location && loc!=start_location);
+		}
+
+		function move_monster(e,i) {
+			// i: 1-4
+			switch(e) {
+				case "up":
+					var neighbor = $(".map").eq(monster_locations[i-1]-21);
+					if (canMonsterMove(neighbor, player_location-21)) {
+						$("#monster" + i).appendTo(neighbor);
+						monster_locations[i-1] -= 21;
 					}
 					break;
-				case 37:
-					// left
-					if (monster_location-1 >= 1) {
-						var div = $(".map").eq(monster_location-1);
-						monster_location -= 1
-						if(div.background != "black") {
-							$("#monster").appendTo(div);
-						}
+				case "left":
+					var neighbor = $(".map").eq(monster_locations[i-1]-1);
+					if (canMonsterMove(neighbor, player_location-1)) {
+						$("#monster" + i).appendTo(neighbor);
+						monster_locations[i-1] -= 1;
 					}
 					break;
-				case 39:
-					// right
-					if (monster_location+1 <= 399) {
-						var div = $(".map").eq(monster_location+1);
-						monster_location += 1
-						if(div.background != "black") {
-							$("#monster").appendTo(div);
-						}
+				case "right":
+					var neighbor = $(".map").eq(monster_locations[i-1]+1);
+					if (canMonsterMove(neighbor, player_location+1)) {
+						$("#monster" + i).appendTo(neighbor);
+						monster_locations[i-1] += 1;
 					}
 					break;
-				case 40:
-					// down
-					if (monster_location+1 <= 399) {
-						var div = $(".map").eq(monster_location+21);
-						monster_location += 21
-						if(div.background != "black") {
-							$("#monster").appendTo(div);
-						}
+				case "down":
+					var neighbor = $(".map").eq(monster_locations[i-1]+21);
+					if (canMonsterMove(neighbor, player_location+21)) {
+						$("#monster" + i).appendTo(neighbor);
+						monster_locations[i-1] += 21;
 					}
 					break;
 				default:
@@ -168,6 +152,9 @@
 				timer = 180;
 				
 				$("#play").hide();
+
+				// set time
+				$("#time_left").text($("#timer").text());
 				$("#victory").show();
 			}
 
@@ -191,6 +178,40 @@
 			}
 		}
 
+		function fight(i) {
+			if ($("#monster"+i).is(":visible") && (player_location == monster_locations[i-1] || prev_location == monster_locations[i-1]-1 || prev_location == monster_locations[i-1]+1 || prev_location == monster_locations[i-1]-21 || prev_location == monster_locations[i-1]+21)) {
+				$("#heart"+lives).hide();
+				lives--;
+				$("#monster"+i).hide();
+				if (lives == 0){
+					gameover();
+				}
+			}
+		}
+
+		function monster(e) {
+			for(var i = 1; i <= monster_locations.length; i++) {
+				// index starts at 1 because svg naming starts at 1
+				fight(i);
+				var direction = parseInt(Math.random()*4);
+				//console.log(i + " " + direction);
+				switch(direction){
+					case 0:
+						move_monster("left",i);
+						break;
+					case 1:
+						move_monster("up",i);
+						break;
+					case 2:
+						move_monster("right",i);
+						break;
+					case 3:
+						move_monster("down",i);
+						break;
+					default:
+				}
+			}
+		}
 
 		$(document).ready(function () {
 			$("#play").hide();
@@ -201,7 +222,7 @@
 						  
 			$(document).on("keydown", function(e) {
 				move_player(e);
-				move_monster(e);
+				monster(e);
 			});
 			
 		});
