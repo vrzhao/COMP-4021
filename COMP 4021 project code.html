@@ -2,14 +2,14 @@
 
 <html>
 <head>
-    <title>COMP 4021 Project</title>
+	<title>COMP 4021 Project</title>
 	<meta charset="utf-8">
-    <meta name="viewport" 
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<meta name="viewport" 
+		  content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
 		var timer = 180;
@@ -20,7 +20,7 @@
 		var lives = 3;
 
 		var goal_location = 2;
-		var player_location = 398;
+		var player_location = 397; // index start at 0
 
 		var monster_location = [133,202,259,320,336];
 
@@ -30,52 +30,65 @@
 			switch(e.keyCode) {
 				case 38:
 					// up
-                    var div = $(".map").eq(0);
-                    div.css('background-color','red');
-                    if (player_location-21 >= 399) {
-						var div = $(".map").eq(player_location-21);
-                        player_location -= 21;
-                        div.css('background-color','red');
-						if(div.background != "black") {
-							$("#player").appendTo(div);
-						}
+					var neighbor = $(".map").eq(player_location-21);
+					if (canMove(neighbor, player_location-21)) {
+						// prev to white
+						var div = $(".map").eq(player_location);
+						div.css('background-color','white');
+
+						// next to red
+						neighbor.css('background-color','red');
+						player_location -= 21;
 					}
 					break;
+					
 				case 37:
 					// left
-					if (player_location-1 >= 1) {
-						var div = $(".map").eq(player_location-1);
-                        player_location -= 1;
-                        div.css('background-color','red');
-						if(div.background != "black") {
-							$("#player").appendTo(div);
-						}					
+					var neighbor = $(".map").eq(player_location-1);
+					if (canMove(neighbor, player_location-1)) {
+						// prev to white
+						var div = $(".map").eq(player_location);
+						div.css('background-color','white');
+
+						// next to red
+						neighbor.css('background-color','red');
+						player_location -= 1;
 					}
 					break;
 				case 39:
 					// right
-					if (player_location+1 <= 399) {
-						var div = $(".map").eq(player_location+1);
-                        player_location += 1;
-                        div.css('background-color','red');
-						if(div.background != "black") {
-							$("#player").appendTo(div);
-						}					
+					var neighbor = $(".map").eq(player_location+1);
+					if (canMove(neighbor, player_location+1)) {
+						// prev to white
+						var div = $(".map").eq(player_location);
+						div.css('background-color','white');
+
+						// next to red
+						neighbor.css('background-color','red');
+						player_location += 1;
 					}
 					break;
 				case 40:
 					// down
-					if (player_location+1 <= 399) {
-						var div = $(".map").eq(player_location+21);
-                        player_location += 21;
-                        div.css('background-color','red');
-						if(div.background != "black") {
-							$("#player").appendTo(div);
-						}
+					var neighbor = $(".map").eq(player_location+21);
+					if (canMove(neighbor, player_location+21)) {
+						// prev to white
+						var div = $(".map").eq(player_location);
+						div.css('background-color','white');
+
+						// next to red
+						neighbor.css('background-color','red');
+						player_location += 21;
 					}
 					break;
 				default:
 			}
+			console.log(player_location);
+		}
+
+		function canMove(div, loc){
+			console.log(div.css('background-color'));
+			return (div.css('background-color')=='rgb(0, 0, 0)') && (loc <= 398 && loc >=0);
 		}
 
 		function move_monster(e) {
@@ -125,28 +138,28 @@
 			}
 		}
 
-        function start() {
-            $("#title").fadeOut(500);
-            $("#play").show();
-            $("audio")[0].play();
+		function start() {
+			$("#title").fadeOut(500);
+			$("#play").show();
+			$("audio")[0].play();
 
 			setTimeout(time, 1000);
 		}
 
-        function restart() {
-            $("#gameover").hide();
-            $("#play").fadeIn(500);
-            $("audio")[0].play();
+		function restart() {
+			$("#gameover").hide();
+			$("#play").fadeIn(500);
+			$("audio")[0].play();
 
 			setTimeout(time, 1000);
 		}
 
 		function gameover() {
 			$("#play").hide();
-            $("#gameover").fadeIn(500);
-            $("audio")[1].play();
-            $("audio")[0].pause();
-            $("audio")[0].currentTime = 0;
+			$("#gameover").fadeIn(500);
+			$("audio")[1].play();
+			$("audio")[0].pause();
+			$("audio")[0].currentTime = 0;
 		}
 
 		function checkGoal() {
@@ -161,12 +174,12 @@
 		}
 
 		function time() {
-            timer -= 1;
-            minute = Math.floor(timer / 60);
-            second = timer % 60;
-            if (second < 10) {
-                second = "0" + second.toString();
-            }
+			timer -= 1;
+			minute = Math.floor(timer / 60);
+			second = timer % 60;
+			if (second < 10) {
+				second = "0" + second.toString();
+			}
 			$("#timer").text(minute+":"+second);
 			if (timer == 0) {
 				timer = 180;
@@ -185,10 +198,10 @@
 			$("#startButton").on("keydown", function(e) {
 				
 			});
-                          
-            $(document).on("keydown", function(e) {
-                move_player(e);
-                move_monster(e);
+						  
+			$(document).on("keydown", function(e) {
+				move_player(e);
+				move_monster(e);
 			});
 			
 		});
@@ -200,22 +213,22 @@
 		margin: 0; 
 	}
 
-    h1 {
-        font-size: 60px;
-        padding: 0;
-        margin: 0;
-    }
+	h1 {
+		font-size: 60px;
+		padding: 0;
+		margin: 0;
+	}
 
-    h5 {
-        padding: 0;
-        margin: 0;
-    }
+	h5 {
+		padding: 0;
+		margin: 0;
+	}
 
 	#sidebar, #main {
-        border: 2px solid black;
-    }
+		border: 2px solid black;
+	}
 
-    #main { 
+	#main { 
 		padding: 1vh;
 		background: white;
 	}
@@ -239,7 +252,7 @@
 	}
 	
 	#black {
-		background: grey;
+		background: gray;
 	}
 
 	#start {
@@ -308,20 +321,20 @@
 		display: flex;
 		flex-wrap: nowrap;
 		margin-right: 0px;
-    	margin-left: 0px;
+		margin-left: 0px;
 	}
 
 	#maze-row > div {
-        text-align: center;
-        flex-grow: 1;
-    }
+		text-align: center;
+		flex-grow: 1;
+	}
 
 	</style>
 
 </head>
 <body>
-    <audio><source src="fireflies.mp3" type="audio/mpeg"></audio>
-    <audio><source src="gameover.mp3" type="audio/mpeg"></audio>
+	<audio><source src="fireflies.mp3" type="audio/mpeg"></audio>
+	<audio><source src="gameover.mp3" type="audio/mpeg"></audio>
 	<div class = "screen" id = "title">
 		<p id ="title_message">Maze Escape!</p>
 		<a id = "startButton" href= "#" onclick="start()" >Start</a>
@@ -329,9 +342,9 @@
 	<div class = "screen" id = "play">
 		<div class="container-fluid">
 		<div class="row" id="grid">
-            <div class="col-8" id = "main">	
+			<div class="col-8" id = "main">	
 
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "goal">Exit</div>
 			<div class = "map" id = "black"></div>
@@ -355,7 +368,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -380,7 +393,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -405,7 +418,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -430,7 +443,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -455,7 +468,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -480,7 +493,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -505,7 +518,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -530,7 +543,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -555,7 +568,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -580,7 +593,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -605,7 +618,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -630,7 +643,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -655,7 +668,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -680,7 +693,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -705,7 +718,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -730,7 +743,7 @@
 			<div class = "map" id = "black"></div>
 
 			</div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -755,7 +768,7 @@
 			<div class = "map" id = "black"></div>
 
 </div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
@@ -780,7 +793,7 @@
 			<div class = "map" id = "black"></div>
 
 </div>
-            <div class="row" id="maze-row">
+			<div class="row" id="maze-row">
 
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
@@ -807,14 +820,14 @@
 
 </div>
 
-		    <div class="col-4" id = "sidebar">
+			<div class="col-4" id = "sidebar">
 				<h1>Maze Escape!</h1>
-            	<h5>Time Left:</h5>
+				<h5>Time Left:</h5>
 				<span id = "timer"> 3:00 </span>
 				<p id = "instructions">Use the Arrow Keys to control your character! Navigate your way through the maze and reach the exit before the timer runs out! Be careful! There are monsters in the maze too! Encountering a monster will cost a life, lose all three of your lives and it is gameover!</p>
-        	</div>
-        </div>
-        </div>
+			</div>
+		</div>
+		</div>
 
 	</div>
 	<div class = "screen" id = "gameover">
