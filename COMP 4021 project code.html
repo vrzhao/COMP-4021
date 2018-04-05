@@ -4,11 +4,11 @@
 <head>
 	<title>COMP 4021 Project</title>
 	<meta charset="utf-8">
-	<meta name="viewport" 
-		  content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
@@ -24,7 +24,7 @@
 
 		var monster_location = [133,202,259,320,336];
 
-		var disp = newMaze(10,7);
+		var disp = newMaze(10,10);
 
 		// there are 399 squares in the maze
 		function move_player(e) {
@@ -134,24 +134,17 @@
 
 			
 			for (var i = 0; i < disp.length; i++) {
-				$('#maze > tbody').append("<tr>");
-				for (var j = 0; j < disp[i].length; j++) {
-					var selector = i+"-"+j;
-					//$('#maze > tbody').append("<td id='"+selector+"'>&nbsp;</td>");
-					$('#maze > tbody').append("<td id='"+selector+"'>*</td>");
-					if (disp[i][j][0] == 0) { $('#'+selector).css('border-top', '2px solid black'); }
-					if (disp[i][j][1] == 0) { $('#'+selector).css('border-right', '2px solid black'); }
-					if (disp[i][j][2] == 0) { $('#'+selector).css('border-bottom', '2px solid black'); }
-					if (disp[i][j][3] == 0) { $('#'+selector).css('border-left', '2px solid black'); }
-				}
-				$('#maze > tbody').append("</tr>");
+			    $('#maze > tbody').append("<tr>");
+			    for (var j = 0; j < disp[i].length; j++) {
+			        var selector = i+"-"+j;
+			        $('#maze > tbody').append("<td id='"+selector+"'>&nbsp;</td>");
+			        if (disp[i][j][0] == 0) { $('#'+selector).css('border-top', '2px solid black'); }
+			        if (disp[i][j][1] == 0) { $('#'+selector).css('border-right', '2px solid black'); }
+			        if (disp[i][j][2] == 0) { $('#'+selector).css('border-bottom', '2px solid black'); }
+			        if (disp[i][j][3] == 0) { $('#'+selector).css('border-left', '2px solid black'); }
+			    }
+			    $('#maze > tbody').append("</tr>");
 			}
-
-			// start and end squares
-			$('#0-0').css('background-color', 'pink');
-			$('#0-0').text('S');			
-			$('#6-9').css('background-color', '#cfffb7');
-			$('#6-9').text('T');
 
 			setTimeout(time, 1000);
 		}
@@ -268,8 +261,8 @@
 			});
 						  
 			$(document).on("keydown", function(e) {
-				move_player(e);
-				move_monster(e);
+				//move_player(e);
+				//move_monster(e);
 			});
 			
 		});
@@ -374,22 +367,17 @@
 	}
 
 	#maze {
-		border-collapse: collapse;
+	    border-collapse: collapse;
 	}
 
 	#maze td {
-		width: 20px;
-		height: 20px;
+	    width: 20px;
+	    height: 20px;
 	}
 
 	.row {
 		max-height: 100%;
 		min-height: 100%;
-	}
-
-	table {
-		min-width: 100%;
-		max-height: 90%;
 	}
 
 	</style>
