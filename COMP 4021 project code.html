@@ -16,7 +16,8 @@
 		var goal_location = 2;
 		var player_location = 398;
 
-		var monster_location = [133,202,259,320,336];
+		var monster_location = [137,206,263,319,351];
+
 
 		// there are 399 squares in the maze
 		function move_player(e) {
@@ -24,7 +25,7 @@
 				case "up":
 					if (player_location-21 >= 399) {
 						var div = $(".map").eq(player_location-21);
-						player_location -= 21
+						player_location -= 21;
 						if($("div").is("#black")) {
 						}
 						else{
@@ -35,7 +36,7 @@
 				case "left":
 					if (player_location-1 >= 1) {
 						var div = $(".map").eq(player_location-1);
-						player_location -= 1
+						player_location -= 1;
 						if($("div").is("#black")) {
 						}			
 						else{
@@ -46,7 +47,7 @@
 				case "right":
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+1);
-						player_location += 1
+						player_location += 1;
 						if($("div").is("#black")) {
 						}
 						else{
@@ -57,7 +58,7 @@
 				case "down":
 					if (player_location+1 <= 399) {
 						var div = $(".map").eq(player_location+21);
-						player_location += 21
+						player_location += 21;
 						if($("div").is("#black")) {
 						}
 						else{
@@ -76,7 +77,7 @@
 				case "up":
 					if (monster_location-21 >= 399) {
 						var div = $(".map").eq(monster_location-21);
-						monster_location -= 21
+						monster_location -= 21;
 						if($("div").is("#black")) {
 						}
 						else {
@@ -87,7 +88,7 @@
 				case "left":
 					if (monster_location-1 >= 1) {
 						var div = $(".map").eq(monster_location-1);
-						monster_location -= 1
+						monster_location -= 1;
 						if($("div").is("#black")) {
 						}
 						else {
@@ -98,7 +99,7 @@
 				case "right":
 					if (monster_location+1 <= 399) {
 						var div = $(".map").eq(monster_location+1);
-						monster_location += 1
+						monster_location += 1;
 						if($("div").is("#black")) {
 						}
 						else {
@@ -109,7 +110,7 @@
 				case "down":
 					if (monster_location+1 <= 399) {
 						var div = $(".map").eq(monster_location+21);
-						monster_location += 21
+						monster_location += 21;
 						if($("div").is("#black")) {
 						}
 						else {
@@ -155,7 +156,10 @@
 				if (second < 10) {
 					second = "0" + second.toString();
 				}
-				$("#completion_time").text(minute+":"+second);
+				$("#time_left").text(minute+":"+second);
+
+				$("audio")[0].pause();
+				$("audio")[0].currentTime = 0;
 
 				$("#play").hide();
 				$("#victory").fadeIn(500);
@@ -192,7 +196,7 @@
 		}
 
 		function monster() {
-			for( i = 0; i < monster_location.lenth; i++) {
+			for( i = 0; i < monster_location.length; i++) {
 				var direction = parseInt(Math.random()*4);
 				switch(direction){
 					case 1:
@@ -200,26 +204,25 @@
 						break;
 					case 2:
 						move_monster("up",i);
-						break:
+						break;
 					case 3:
 						move_monster("right",i);
-						break:
+						break;
 					case 4:
 						move_monster("down",i);
-						break:
+						break;
 					default:
 				}
 				fight(i);
 			}
 		}
 
-
 		$(document).ready(function () {
 			$("#play").hide();
 
 			setTimeout(monsters,monster_move_timer);
 			
-			$("#startButton").on("keydown", function(e) {
+			$(document).on("keydown", function(e) {
 				if (e.keyCode == 37) {
 					move_player("left");
 				}
@@ -279,7 +282,7 @@
 		width: 4.25vmin;
 		height: 4.25vmin;
 		border: 1px solid black;
-		font-size: 2vh;
+		font-size: 1.5vh;
 	}
 	
 	#black {
@@ -303,6 +306,12 @@
 	#play { 
 		background: gray;
 		display: flex;
+	}
+
+	.characters {
+		align: center;
+		width: 2vh;
+		height: 2vh;
 	}
 
 	#instructions {
@@ -370,7 +379,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -392,7 +400,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -414,7 +421,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -436,7 +442,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -458,7 +463,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -480,7 +484,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -491,9 +494,9 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster1" src="monster1.svg"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
@@ -502,7 +505,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -524,7 +526,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -546,7 +547,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -562,13 +562,12 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster2" src="monster2.svg"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -590,7 +589,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -612,7 +610,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -623,7 +620,7 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster3" src="monster3.svg"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -634,7 +631,6 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -656,7 +652,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -678,13 +673,12 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster4" src="monster4.svg"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
-			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -700,7 +694,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
@@ -713,16 +706,15 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
+			<div class = "map"><img class = "characters" id="monster5" src="monster5.svg"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map"></div>
 			<div class = "map"></div>
@@ -744,7 +736,6 @@
 			<div class = "map"></div>
 			<div class = "map"></div>
 			<div class = "map" id = "black"></div>
-
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
@@ -764,7 +755,9 @@
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
 			<div class = "map" id = "black"></div>
-			<div class = "map" id = "start">Start</div>
+			<div class = "map" id = "start">Start
+			<img class = "characters" id="player" src="person.svg">
+			</div>
 			<div class = "map" id = "black"></div>
 		</div>
 		<div id = "sidebar">
@@ -780,7 +773,7 @@
 	</div>
 	<div class = "screen" id = "victory">
 		<h2 id ="victory_message">YOU WIN!</h2>
-		<p id = "completion_time">3:00</p>
+		<p id = "time_left">3:00</p>
 		<a id = "restartButton" href= "#" onclick="restart()">Play Again</a>
 	</div>
 
