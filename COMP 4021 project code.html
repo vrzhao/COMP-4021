@@ -131,11 +131,42 @@
 		}
 
 		function restart() {
+			reset();
+
+			$("#victory").hide();
 			$("#gameover").hide();
+
 			$("#play").fadeIn(500);
 			$("audio")[0].play();
 
 			setTimeout(time, 1000);
+		}
+
+		function reset() {
+			// reset time?
+			timer = 180;
+			completion_time = 0;
+			$("#timer").text("3:00");
+
+			// reset lives
+			lives = 3;
+			$("#heart1").show();
+			$("#heart2").show();
+			$("#heart3").show();
+
+			// reset player location
+			player_location = start_location;
+			prev_location = player_location;
+			var start_player = $(".map").eq(start_location);
+			$("#player").appendTo(start_player);
+
+			// reset monsters
+			monster_locations = [136,204,262,318,350];
+			$("#monster1").show();
+			$("#monster2").show();
+			$("#monster3").show();
+			$("#monster4").show();
+			$("#monster5").show();
 		}
 
 		function gameover() {
@@ -150,12 +181,14 @@
 			if (player_location == goal_location) {
 				completion_time = timer;
 				timer = 180;
-				
-				$("#play").hide();
 
-				// set time
 				$("#time_left").text($("#timer").text());
-				$("#victory").show();
+
+				$("audio")[0].pause();
+				$("audio")[0].currentTime = 0;
+				$("audio")[2].play();
+				$("#play").hide();
+				$("#victory").fadeIn(500);
 			}
 
 		}
@@ -173,13 +206,24 @@
 				$("#timer").text("3:00");
 				gameover();
 			}
-			else {
+			else if ($("#play").is(":visible")) {
 				setTimeout(time, 1000);
 			}
 		}
 
 		function fight(i) {
 			if ($("#monster"+i).is(":visible") && (player_location == monster_locations[i-1] || prev_location == monster_locations[i-1]-1 || prev_location == monster_locations[i-1]+1 || prev_location == monster_locations[i-1]-21 || prev_location == monster_locations[i-1]+21)) {
+				$("#heart"+lives).hide();
+				lives--;
+				$("#monster"+i).hide();
+				if (lives == 0){
+					gameover();
+				}
+			}
+		}
+
+		function fight2(i) {
+			if ($("#monster"+i).is(":visible") && (player_location == monster_locations[i-1]) ) {
 				$("#heart"+lives).hide();
 				lives--;
 				$("#monster"+i).hide();
@@ -210,6 +254,7 @@
 						break;
 					default:
 				}
+				fight2(i);
 			}
 		}
 
@@ -343,6 +388,10 @@
 		text-decoration: none;
 	}
 
+	#restartButton:hover {
+		background: green;
+	}
+
 	#grid {
 		max-height: 100%;
 		min-height: 100%;
@@ -367,6 +416,8 @@
 <body>
 	<audio><source src="fireflies.mp3" type="audio/mpeg"></audio>
 	<audio><source src="gameover.mp3" type="audio/mpeg"></audio>
+	<audio><source src="victory.mp3" type="audio/mpeg"></audio>
+
 	<div class = "screen" id = "title">
 		<p id ="title_message">Maze Escape!</p>
 		<a id = "startButton" href= "#" onclick="start()" >Start</a>
@@ -872,7 +923,7 @@
 	</div>
 	<div class = "screen" id = "victory">
 		<h2 id ="victory_message">YOU WIN!</h2>
-		<p>You Escaped the maze with </p>
+		<p>You escaped the maze with </p>
 		<p id = "time_left">3:00</p>
 		<p> left!</p>
 		<a id = "restartButton" href= "#" onclick="restart()">Play Again</a>
