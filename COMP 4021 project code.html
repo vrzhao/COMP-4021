@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -12,7 +12,8 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
-		var timer = 180;
+        var timer = 180;
+        var current_score = 0;
 		var completion_time = 0;
 
 		var monster_move_timer = 5000;
@@ -148,6 +149,10 @@
 			completion_time = 0;
 			$("#timer").text("3:00");
 
+            // reset score
+            current_score = 0;
+            $("#score").text(current_score);
+
 			// reset lives
 			lives = 3;
 			$("#heart1").show();
@@ -182,7 +187,8 @@
 				completion_time = timer;
 				timer = 180;
 
-				$("#time_left").text($("#timer").text());
+                $("#time_left").text($("#timer").text());
+                $("#final_score").text($("#score").text());
 
 				$("audio")[0].pause();
 				$("audio")[0].currentTime = 0;
@@ -215,7 +221,10 @@
 			if ($("#monster"+i).is(":visible") && (player_location == monster_locations[i-1] || prev_location == monster_locations[i-1]-1 || prev_location == monster_locations[i-1]+1 || prev_location == monster_locations[i-1]-21 || prev_location == monster_locations[i-1]+21)) {
 				$("#heart"+lives).hide();
 				lives--;
-				$("#monster"+i).hide();
+                $("#monster" + i).hide();
+
+                current_score += 100;
+                $("#score").text(current_score);
 				if (lives == 0){
 					gameover();
 				}
@@ -226,7 +235,10 @@
 			if ($("#monster"+i).is(":visible") && (player_location == monster_locations[i-1]) ) {
 				$("#heart"+lives).hide();
 				lives--;
-				$("#monster"+i).hide();
+                $("#monster" + i).hide();
+
+                current_score += 100;
+                $("#score").text(current_score);
 				if (lives == 0){
 					gameover();
 				}
@@ -285,10 +297,20 @@
 		margin: 0;
 	}
 
+    h2 {
+        text-align: left;
+        padding-left: 2em;
+    }
+
 	h5 {
 		padding: 0;
 		margin: 0;
 	}
+
+    ol {
+        font-size: 25px;
+        text-align: left;
+    }
 
 	#sidebar, #main {
 		border: 2px solid black;
@@ -322,7 +344,7 @@
 	}
 
 	#start {
-		background: red
+		background: red;
 	}
 
 	#goal {
@@ -330,7 +352,7 @@
 	}
 
 	#title {
-		background: yellow;
+		background-color: antiquewhite;
 		padding-top: 25vh;
 		display: block;
 	}
@@ -361,7 +383,7 @@
 	}
 
 	#victory {
-		background: gold;
+		background-color: blanchedalmond;
 		display: none;
 	}
 
@@ -421,6 +443,10 @@
 	<div class = "screen" id = "title">
 		<p id ="title_message">Maze Escape!</p>
 		<a id = "startButton" href= "#" onclick="start()" >Start</a>
+        <h2>Game Instruction</h2>
+        <ol>1. Move the player through the maze from the start state to the end goal using the up, down, left, right buttons on the keyboard.</ol>
+        <ol>2. The player will lose a life and gain 100 score when he encounters a monster.</ol>
+        <ol>3. Finish the maze before the time runs out or the player loses all his lives.</ol>
 	</div>
 	<div class = "screen" id = "play">
 		<div class="container-fluid">
@@ -912,6 +938,8 @@
 				<img class = "heart" id="heart1" src="heart.svg">
 				<img class = "heart" id="heart2" src="heart.svg">
 				<img class = "heart" id="heart3" src="heart.svg">
+                <h5>Current Score:</h5>
+                <span id="score"> 0 </span>
 			</div>
 		</div>
 		</div>
@@ -923,9 +951,12 @@
 	</div>
 	<div class = "screen" id = "victory">
 		<h2 id ="victory_message">YOU WIN!</h2>
-		<p>You escaped the maze with </p>
-		<p id = "time_left">3:00</p>
+		<p>You escaped the maze with score</p>
+        <span id = "final_score">0</span>
+        <span>and time</span>
+		<span id = "time_left">3:00</span>
 		<p> left!</p>
+
 		<a id = "restartButton" href= "#" onclick="restart()">Play Again</a>
 	</div>
 
