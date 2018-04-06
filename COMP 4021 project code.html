@@ -12,7 +12,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script>
 		
-        var timer = 180;
+        var timer = 120;
         var current_score = 0;
 		var completion_time = 0;
 
@@ -145,9 +145,9 @@
 
 		function reset() {
 			// reset time?
-			timer = 180;
+			timer = 120;
 			completion_time = 0;
-			$("#timer").text("3:00");
+			$("#timer").text("2:00");
 
             // reset score
             current_score = 0;
@@ -185,7 +185,7 @@
 		function checkGoal() {
 			if (player_location == goal_location) {
 				completion_time = timer;
-				timer = 180;
+				timer = 120;
 
                 $("#time_left").text($("#timer").text());
                 $("#final_score").text($("#score").text());
@@ -208,8 +208,9 @@
 			}
 			$("#timer").text(minute+":"+second);
 			if (timer == 0) {
-				timer = 180;
-				$("#timer").text("3:00");
+				timer = 120;
+				$("#timer").text("2:00");
+				$("#loss_reason").text("You Ran Out of Time!").text();
 				gameover();
 			}
 			else if ($("#play").is(":visible")) {
@@ -226,6 +227,7 @@
                 current_score += 100;
                 $("#score").text(current_score);
 				if (lives == 0){
+					$("#loss_reason").text("You Ran Out of Lives!").text();
 					gameover();
 				}
 			}
@@ -240,6 +242,7 @@
                 current_score += 100;
                 $("#score").text(current_score);
 				if (lives == 0){
+					$("#loss_reason").text("You Ran Out of Lives!").text();
 					gameover();
 				}
 			}
@@ -273,15 +276,10 @@
 		$(document).ready(function () {
 			$("#play").hide();
 			
-			$("#startButton").on("keydown", function(e) {
-				
-			});
-						  
 			$(document).on("keydown", function(e) {
 				move_player(e);
-				monster(e);
+				monster(e)
 			});
-			
 		});
 	</script>
 
@@ -353,12 +351,12 @@
 
 	#title {
 		background-color: antiquewhite;
-		padding-top: 25vh;
+		padding-top: 20vh;
 		display: block;
 	}
 
 	#play { 
-		background: gray;
+		background-color: #D4E6F1;
 		display: flex;
 	}
 
@@ -378,7 +376,8 @@
 	}
 
 	#gameover {
-		background: red;
+		padding-top: 20vh;
+		background-color: #E74C3C;
 		display: none;
 	}
 
@@ -441,7 +440,7 @@
 	<audio><source src="victory.mp3" type="audio/mpeg"></audio>
 
 	<div class = "screen" id = "title">
-		<p id ="title_message">Maze Escape!</p>
+		<p id ="title_message" style = "font-size: 150%">Maze Escape!</p>
 		<a id = "startButton" href= "#" onclick="start()" >Start</a>
         <h2>Game Instruction</h2>
         <ol>1. Move the player through the maze from the start state to the end goal using the up, down, left, right buttons on the keyboard.</ol>
@@ -933,7 +932,7 @@
 			<div class="col-4" id = "sidebar">
 				<h1>Maze Escape!</h1>
 				<h5>Time Left:</h5>
-				<span id = "timer"> 3:00 </span>
+				<span id = "timer"> 2:00 </span>
 				<p id = "instructions">Use the Arrow Keys to control your character! Navigate your way through the maze and reach the exit before the timer runs out! Be careful! There are monsters in the maze too! Encountering a monster will cost a life, lose all three of your lives and it is gameover!</p>
 				<img class = "heart" id="heart1" src="heart.svg">
 				<img class = "heart" id="heart2" src="heart.svg">
@@ -946,18 +945,19 @@
 
 	</div>
 	<div class = "screen" id = "gameover">
-		<p id ="gameover_message">Game Over</p>
-		<a id = "restartButton" href= "#" onclick="restart()">Restart</a>
+		<p id ="gameover_message" style = "font-size: 150%">Game Over</p>
+		<p id ="loss_reason" style = "font-size: 80%"> _ </p>
+		<a id = "restartButton" href= "#" onclick="restart()">Restart?</a>
 	</div>
 	<div class = "screen" id = "victory">
 		<h2 id ="victory_message">YOU WIN!</h2>
 		<p>You escaped the maze with score</p>
         <span id = "final_score">0</span>
         <span>and time</span>
-		<span id = "time_left">3:00</span>
+		<span id = "time_left">2:00</span>
 		<p> left!</p>
 
-		<a id = "restartButton" href= "#" onclick="restart()">Play Again</a>
+		<a id = "restartButton" href= "#" onclick="restart()">Play Again?</a>
 	</div>
 
 </body>
